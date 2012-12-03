@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SRPServer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("SRP Server Sample")]
+[assembly: AssemblyDescription("Lidgren SRP6a Authentication module server sample")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SRPServer")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCompany("Derk-Jan Karrenbeld")]
+[assembly: AssemblyProduct("SRP Server Sample")]
+[assembly: AssemblyCopyright("Copyright Derk-Jan Karrenbeld ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

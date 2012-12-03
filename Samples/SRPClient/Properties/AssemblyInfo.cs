@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SRPClient")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("SRP Server Sample")]
+[assembly: AssemblyDescription("Lidgren SRP6a Authentication module server sample")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SRPClient")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCompany("Derk-Jan Karrenbeld")]
+[assembly: AssemblyProduct("SRP Server Sample")]
+[assembly: AssemblyCopyright("Copyright Derk-Jan Karrenbeld ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5b81c614-58ae-4109-8ebd-7794363aff4e")]
+[assembly: Guid("a44ccd37-5652-4e4d-a3d2-b149afcb12ce")]
 
 // Version information for an assembly consists of the following four values:
 //

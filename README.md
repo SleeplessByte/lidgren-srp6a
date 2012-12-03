@@ -24,3 +24,43 @@ secure manner. A modified version of this code is being implented for [my game][
 since there is a lot of community requesting an implementation I am sharing it. Please 
 note that I am not responsible for any loss of data or corruption or breakins whatsoever
 but you should be pretty safe taken that you heed the warnings provided.
+
+[3]: http://projectera.org "Epos of Realsm and Aliances"
+
+How?
+-------------
+The code provides a way to seperate authenticated users from guest users. Users should
+connect to your server and be processed by the NetworkLobby when they want to authenticate.
+I suggest simply letting users connect, receive any updates if needed and then authenticate.
+
+To implement this in your game
+* add the Network.Authentication dll or project reference to both your server and client. 
+* create a LogonManager on your Serverside ONLY
+
+	internal class LogonManager : ILogonManager
+
+* implement the lookup function in your logonmanager
+* choose a keysize and set it in NetLobby
+
+	public static Int32 KeySize = 1024;
+
+* write code to connect to the server and process any data message by the networklobby
+	
+	switch (msg.MessageType) {
+		var handshake = NetLobby.IncomingMessage(msg);
+		\[...\]
+	
+Supported Keysizes
+--------------
+The following keysizes are supported:
+* 1024
+* 1536
+* 2048
+* 3072
+* 4096
+
+Implemented but not supported yet are
+* 6144
+* 8192
+
+You can add your own in NetSRP.Functions

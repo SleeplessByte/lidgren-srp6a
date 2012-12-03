@@ -50,7 +50,7 @@ namespace SRPClient
         static void _manager_OnAuthenticationDenied(string reason)
         {
             Console.WriteLine(">> Denied: {0} <<", reason);
-            _manager.IsRunning = false;
+            QueryDetails();
         }
 
         /// <summary>

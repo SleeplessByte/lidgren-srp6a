@@ -115,6 +115,8 @@ namespace SRPClient
                                         SetStep(AuthenticationStatus.NoServerConnection);
                                         OnAuthenticationTimeout.Invoke("Could not connect");
                                     }
+
+                                    Disconnect("");
                                     break;
 
                                 case NetConnectionStatus.Connected:
@@ -321,10 +323,14 @@ namespace SRPClient
         public void Disconnect(String message)
         {
             if (_client != null)
-                _client.Disconnect(message);
+            {
+                if (_client.ServerConnection != null && _client.ServerConnection.Status != NetConnectionStatus.Disconnected)
+                    _client.Disconnect(message);
+            }
 
             _serverEP = null;
-
+            _handshake = null;
+            _connection = null;
             SetStep(AuthenticationStatus.None);
         }
     }

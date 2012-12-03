@@ -66,6 +66,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationStatus.cs" />
+    <Compile Include="Connection.cs" />
+    <Compile Include="NetworkManager.cs" />
+    <Compile Include="NetworkManager.State.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

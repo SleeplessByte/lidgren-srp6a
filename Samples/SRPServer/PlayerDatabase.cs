@@ -29,17 +29,26 @@ namespace SRPServer
         public static void Load()
         {
             _entries = new List<PlayerDatabaseEntry>();
-            using(BinaryReader fs = new BinaryReader(File.OpenRead("flatdb"))) {
-                var count = fs.ReadInt32();
-                for (; count > 0; count--)
-                    _entries.Add(new PlayerDatabaseEntry()
-                    {
-                        Username = fs.ReadString(),
-                        Verifier = fs.ReadBytes(128),
-                        Salt = fs.ReadBytes(10),
-                        IsBanned = fs.ReadBoolean()
-                    });
+            try
+            {
+                using (BinaryReader fs = new BinaryReader(File.OpenRead("flatdb")))
+                {
+                    var count = fs.ReadInt32();
+                    for (; count > 0; count--)
+                        _entries.Add(new PlayerDatabaseEntry()
+                        {
+                            Username = fs.ReadString(),
+                            Verifier = fs.ReadBytes(128),
+                            Salt = fs.ReadBytes(10),
+                            IsBanned = fs.ReadBoolean()
+                        });
+                }
             }
+            catch (IOException)
+            {
+
+            }
+            Save();
         }
 
         /// <summary>
@@ -66,6 +75,8 @@ namespace SRPServer
         /// <param name="pde"></param>
         public static void Add(PlayerDatabaseEntry pde)
         {
+            if (_entries == null)
+                Load();
             _entries.Add(pde);
         }
     }

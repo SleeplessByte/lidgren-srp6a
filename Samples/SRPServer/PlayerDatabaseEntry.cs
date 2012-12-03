@@ -42,7 +42,7 @@ namespace SRPServer
         /// <param name="password"></param>
         /// <param name="keysize"></param>
         /// <returns></returns>
-        public PlayerDatabaseEntry Generate(String username, String password, Int32 keysize)
+        public static PlayerDatabaseEntry Generate(String username, String password, Int32 keysize)
         {
             Byte[] salt;
 

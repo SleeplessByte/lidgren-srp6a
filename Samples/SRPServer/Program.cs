@@ -35,7 +35,9 @@ namespace SRPServer
         {
             // On the server a logon manager needs to be defined. Write a logonmanager class that handles logins
             NetLobby.LogonManager = new LogonManager(NetLobby.KeySize, "There is no secret.");
-            StopRunningSemaphore = new ManualResetEvent(true);
+            StopRunningSemaphore = new ManualResetEvent(false);
+
+            PlayerDatabase.Add(PlayerDatabaseEntry.Generate("test", "pass", NetLobby.KeySize));
 
             var listener = new Listener();
             listener.OnConnected += new Listener.ConnectionDelegate(listener_OnConnected);

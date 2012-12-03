@@ -27,6 +27,24 @@ but you should be pretty safe taken that you heed the warnings provided.
 
 [3]: http://projectera.org "Epos of Realsm and Aliances"
 
+Try?
+-------------
+Just start the SRPServer project and then start the SRPClient project. Please note that
+the addresses are hardcoded (loopback) but comments show you where and how and what. 
+
+By default there is only ONE user allowed access. First try a lot of bogus usernames.
+Then try a lot of bogus passwords with the user test. Finally login with 
+	
+	username : test
+	password : pass
+	
+Yes, you CAN NOT see the password while you type it, but it will be display on the 
+console for debugging purposes. Also, the password is NEVER sent over the network. Read
+more about the SRP if you want to know how.
+
+When you are connected, you are allowed to send ONE encrypted message to the server,
+after which you will be kicked with a simple goodbye.
+
 How?
 -------------
 The code provides a way to seperate authenticated users from guest users. Users should

@@ -71,16 +71,19 @@ C = client
 S = server
 
 First connect the normal way 
+
 	> C \-\> connect request \-\> S
 	> S \-\> approve connection (optional)
 	> C \-\> receive connection approved
 
 Starts sending/receiving Messagetype Data
+	
 	> C \-\> authenticate \[username : password\]
 	> C and S process all through NetLobby.IncomingMessage
 	> C \-\> capture NetLobby.OnXXX
 	> C \-\> set a tag on connection
 	
 When a tag is set, you are authenticated and you can use the secure connection
+	
 	C and S Use lidgren as you would before
 

@@ -28,22 +28,22 @@ namespace Lidgren.Network.Lobby
         /// <summary>
         /// On handshake denied (username/password failure)
         /// </summary>
-        public static event HandshakeFinishedEvent OnDenied;
+        public static event HandshakeFinishedEvent OnDenied = delegate { };
         
         /// <summary>
         /// On handshake succeeded
         /// </summary>
-        public static event HandshakeFinishedEvent OnSucces;
+        public static event HandshakeFinishedEvent OnSucces = delegate { };
         
         /// <summary>
         /// On handshake expired (timeout/old session)
         /// </summary>
-        public static event HandshakeFinishedEvent OnExpired;
+        public static event HandshakeFinishedEvent OnExpired = delegate { };
         
         /// <summary>
         /// On handshake error
         /// </summary>
-        public static event HandshakeFinishedEvent OnError;
+        public static event HandshakeFinishedEvent OnError = delegate { };
 
         /// <summary>
         /// Authenticates the connection
@@ -63,7 +63,9 @@ namespace Lidgren.Network.Lobby
             connection.SendMessage(result, NetDeliveryMethod.ReliableUnordered, 0);
             connection.Tag = handshake;
 
-            Console.WriteLine("Autenticating with {0}:{1}", username, password);
+            #if DEBUG
+            Console.WriteLine(">> Autenticating with user:{0} and pass:{1} <<", username, password);
+            #endif
         }
 
         /// <summary>
@@ -82,7 +84,9 @@ namespace Lidgren.Network.Lobby
 
                 message.SenderConnection.SendMessage(result, NetDeliveryMethod.ReliableUnordered, 0);
                 
-                Console.WriteLine("Received with {0}", handshake.Username ?? handshake.UserData);
+                #if DEBUG
+                Console.WriteLine(">> Authentication received with userdata: {0} <<", handshake.Username ?? handshake.UserData);
+                #endif
             }
             catch (Lidgren.Network.Authentication.NetSRP.HandShakeException ex)
             {
@@ -138,9 +142,7 @@ namespace Lidgren.Network.Lobby
 
             // Finished!
             (message.SenderConnection.Tag as Handshake).MarkHandshakeAsSucceeded();
-
-            if (OnSucces != null)
-                OnSucces.Invoke("Authentication completed!");
+            OnSucces.Invoke("Authentication completed!");
         }
 
         /// <summary>
@@ -161,9 +163,7 @@ namespace Lidgren.Network.Lobby
             }
 
             (message.SenderConnection.Tag as Handshake).MarkHandshakeAsSucceeded();
-
-            if (OnSucces != null)
-                OnSucces.Invoke("Authentication completed!");
+            OnSucces.Invoke("Authentication completed!");
         }
 
         /// <summary>
@@ -186,20 +186,20 @@ namespace Lidgren.Network.Lobby
             {
                 case Handshake.State.Failed:
                     contents = Handshake.Contents.Error;
-                    if (OnError != null) OnError.Invoke(reason);
+                    OnError.Invoke(reason);
                     break;
                 case Handshake.State.Expired:
                     contents = Handshake.Contents.Expired;
-                    if (OnExpired != null) OnExpired.Invoke(reason);
+                    OnExpired.Invoke(reason);
                     break;
                 case Handshake.State.Denied:
                     contents = Handshake.Contents.Denied;
-                    if (OnDenied!= null) OnDenied.Invoke(reason);
+                    OnDenied.Invoke(reason);
                     break;
 
                 default:
                     contents = Handshake.Contents.Error;
-                    if (OnError != null) OnError.Invoke(reason);
+                    OnError.Invoke(reason);
                     break;
             }
             var result = Create(message.SenderConnection, contents);
@@ -231,22 +231,23 @@ namespace Lidgren.Network.Lobby
             {
                 case NetIncomingMessageType.Data:
                     var reasonByte = message.ReadByte();
-
                     var reason = (Handshake.Contents)reasonByte;
 
-                    Console.WriteLine("Got handshake {0}", reason);
+                    #if DEBUG
+                    Console.WriteLine(">> Got handshake {0} <<", reason);
+                    #endif
 
                     var handshake = message.SenderConnection.Tag as Handshake;
                     switch (reason)
                     {
                         case Handshake.Contents.Succes:
-                            if (OnSucces != null) OnSucces.Invoke("Authentication complete!");
+                            OnSucces.Invoke("Authentication complete!");
                             return reason;
                         case Handshake.Contents.Error:
-                            if (OnError != null) OnError.Invoke(message.ReadString());
+                            OnError.Invoke(message.ReadString());
                             return reason;
                         case Handshake.Contents.Denied:
-                            if (OnDenied != null) OnDenied.Invoke(message.ReadString());
+                            OnDenied.Invoke(message.ReadString());
                             return reason;
                     }
                     if (handshake == null)  // Server

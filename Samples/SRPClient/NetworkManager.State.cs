@@ -132,6 +132,8 @@ namespace SRPClient
                             break;
                     }
                 }
+
+                Disconnect("");
             }
             catch (Exception ex)
             {

@@ -44,12 +44,12 @@ namespace SRPServer
             listener.OnDisconnected += new Listener.ConnectionDelegate(listener_OnDisconnected);
 
             listener.Start();
-            Console.WriteLine("Server started.");
+            Console.WriteLine(">> Server started. <<");
 
             // Runs this server until IsRunning is set to false
             StopRunningSemaphore.WaitOne();
             listener.IsRunning = false;
-            Console.WriteLine("Server terminated.");
+            Console.WriteLine(">> Server terminated. <<");
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace SRPServer
         /// <param name="username"></param>
         static void listener_OnDisconnected(string nodeId, string username)
         {
-            Console.WriteLine("{0}:{1} disconnected", nodeId, username);
+            Console.WriteLine("---- {0}:{1} disconnected ----", nodeId, username);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace SRPServer
         /// <param name="username"></param>
         static void listener_OnConnected(string nodeId, string username)
         {
-            Console.WriteLine("{0} connected with {1}", nodeId, username);
+            Console.WriteLine("---- {1} is now connected ----", nodeId, username);
         }
     }
 }
